@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Mindful Journal{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {# Add potential favicon links or other head elements here later #}
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <a href="{{ url_for('index') }}">الصفحة الرئيسية</a>
+            <a href="{{ url_for('add_entry') }}">إضافة تدوينة جديدة</a>
+            <!-- Add other navigation links here -->
+        </nav>
+    </header>
+
+    <main class="container">
+        {# Display flashed messages #}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {# Use category for alert class, default to info #}
+                    <div class="alert alert-{{ category if category else 'info' }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {# Main content block for child templates #}
+        {% block content %}{% endblock %}
+    </main>
+
+    {# Add potential footer or JS links here later #}
+    {# <script src="{{ url_for('static', filename='script.js') }}"></script> #}
+</body>
+</html>

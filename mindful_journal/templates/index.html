@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}الصفحة الرئيسية - Mindful Journal{% endblock %}
+
+{% block content %}
+    <h1>دفتر يومياتك الواعي</h1>
+    {# Removed introductory paragraph and hr #}
+    <h2>التدوينات</h2>
+    {% if entries %}
+        <ul class="entry-list">
+        {% for entry in entries %}
+            <li>
+                <div class="entry-meta">
+                    <span class="entry-timestamp">{{ entry.timestamp.strftime('%Y-%m-%d %H:%M') }}</span>
+                    <span class="entry-mood">المزاج: {{ entry.mood }}</span>
+                </div>
+                {% if entry.prompt_question %}
+                <div class="entry-prompt">
+                    <strong>{{ entry.prompt_question }}</strong>
+                    {{ entry.prompt_answer | default('(لم تتم الإجابة)', true) }}
+                </div>
+                {% endif %}
+                <div class="entry-content">
+                    {{ entry.main_content | nl2br }} {# Use the custom nl2br filter #}
+                </div>
+            </li>
+            {# Removed hr between entries, spacing handled by CSS #}
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>لا توجد تدوينات حتى الآن. <a href="{{ url_for('add_entry') }}">أضف واحدة!</a></p>
+    {% endif %}
+{% endblock %}

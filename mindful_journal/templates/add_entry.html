@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}إضافة تدوينة جديدة - Mindful Journal{% endblock %}
+
+{% block content %}
+<h1>إضافة تدوينة جديدة</h1>
+    <form method="post">
+        <div> {# Removed style attribute #}
+            <label for="mood">كيف تشعر الآن؟</label> {# Removed <br> #}
+            <select name="mood" id="mood" required>
+                <option value="" disabled selected>-- اختر مزاجك --</option>
+                <option value="سعيد">سعيد 😊</option>
+                <option value="هادئ">هادئ 😌</option>
+                <option value="متحمس">متحمس 🔥</option>
+                <option value="متأمل">متأمل 🤔</option>
+                <option value="قلق">قلق 😟</option>
+                <option value="حزين">حزين 😢</option>
+                <option value="غاضب">غاضب 😠</option>
+                <option value="ممتن">ممتن 🙏</option>
+                <!-- Add more moods as needed -->
+            </select>
+        </div>
+
+        <div> {# Removed style attribute #}
+            {# Corrected label 'for' attribute to match the textarea id #}
+            <label for="prompt_answer">سؤال اليوم (اختياري):</label> {# Removed <br> #}
+            <p><strong>{{ prompt_question }}</strong></p> {# Display the prompt question #}
+            <input type="hidden" name="prompt_question" value="{{ prompt_question }}"> {# Send it with the form #}
+            <textarea name="prompt_answer" id="prompt_answer" rows="3" placeholder="إجابتك هنا..."></textarea> {# Removed style attribute #}
+        </div>
+
+        <div> {# Removed style attribute #}
+            <label for="main_content">ما الذي يدور في ذهنك؟</label> {# Removed <br> #}
+            <textarea name="main_content" id="main_content" rows="10" placeholder="اكتب أفكارك ومشاعرك هنا..." required></textarea> {# Removed style attribute #}
+        </div>
+
+        <button type="submit">حفظ التدوينة</button>
+    </form>
+{% endblock %}
